@@ -7,6 +7,7 @@ import nnero.gift.core.Downloader;
 import nnero.gift.provider.DataProvider;
 import nnero.gift.util.NLog;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
@@ -85,6 +86,14 @@ public class Gift {
             List<Pic> sources = mProvider.getPicList();
             if(sources != null){
                 for(Pic pic : sources){
+
+                    if(needDownExistResource){
+                        File f = new File(pic.getTarget_dir()+File.separator+pic.getTarget_name());
+                        if(f.exists()){
+                            continue;
+                        }
+                    }
+
                     Future<Target> future = mDownloader.execute(new DownloadTask(pic));
                     try {
                         mQueue.put(future);
@@ -104,6 +113,7 @@ public class Gift {
             }
         }
         NLog.d("engine exit!");
+        System.exit(0); //exit java program
     }
 
     private void startFutureDeal(){

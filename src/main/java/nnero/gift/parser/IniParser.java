@@ -27,7 +27,7 @@ public abstract class IniParser<T> {
     public IniParser(String targetFile){
         mTargetFile = new File(targetFile);
         if(!mTargetFile.exists()){
-            throw new RuntimeException("ini file not exists.");
+            throw new RuntimeException("ini file not exists:"+mTargetFile.getAbsolutePath());
         }
     }
 

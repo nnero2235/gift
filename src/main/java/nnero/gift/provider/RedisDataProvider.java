@@ -5,7 +5,6 @@ import nnero.gift.bean.ini.RedisIni;
 import nnero.gift.parser.RedisIniParser;
 import nnero.gift.util.CommonUtil;
 import nnero.gift.util.NLog;
-import org.json.JSONException;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ScanResult;
 
@@ -110,12 +109,7 @@ public class RedisDataProvider implements DataProvider {
         NLog.d("get key:"+key);
         if(key != null) {
             List<String> picJsonList = mRedis.lrange(key, 0, -1);
-            try {
-                return CommonUtil.jsonListToPicList(picJsonList);
-            } catch (JSONException e) {
-                NLog.e("json exception:can't convert json to Pic");
-                return null;
-            }
+            return CommonUtil.jsonListToPicList(picJsonList);
         }
         return null;
     }

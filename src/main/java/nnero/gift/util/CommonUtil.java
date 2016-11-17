@@ -33,7 +33,7 @@ public class CommonUtil {
         return null;
     }
 
-    public static List<Pic> jsonListToPicList(List<String> jsonList) throws JSONException{
+    public static List<Pic> jsonListToPicList(List<String> jsonList){
         if(jsonList != null && jsonList.size() > 0) {
             List<Pic> sources = new ArrayList<>();
             for (String jsonStr : jsonList) {
